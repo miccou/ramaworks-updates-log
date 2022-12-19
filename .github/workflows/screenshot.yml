@@ -29,12 +29,12 @@ jobs:
       run: |
         timestamp=$(date "+%Y.%m.%d-%H.%M.%S")
         shot-scraper https://ramaworks.store/pages/updates --wait 2000 -o $timestamp.png --width 1920 --height 7680 --javascript "document.querySelectorAll('div.zn-accordion-handle').forEach((el) => el.click());"
-        echo "::set-env name=timestamp::$timestamp"
+        echo "timestamp=$timestamp" >> $GITHUB_ENV
     - name: Commit and push
       run: |-
         git config user.name "Automated"
         git config user.email "actions@users.noreply.github.com"
         git add -A
-        git commit -m "Latest: ${timestamp}"
+        git commit -m "Latest: ${{ env.timestamp }}"
         git pull --rebase
         git push
