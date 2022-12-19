@@ -27,7 +27,9 @@ jobs:
         shot-scraper install
     - name: Take shots
       run: |
-       timestamp=$(date "+%Y.%m.%d-%H.%M.%S");shot-scraper https://ramaworks.store/pages/updates --wait 2000 -o $timestamp.png --width 1920 --height 7680 --javascript "document.querySelectorAll('div.zn-accordion-handle').forEach((el) => el.click());";
+        timestamp=$(date "+%Y.%m.%d-%H.%M.%S")
+        shot-scraper https://ramaworks.store/pages/updates --wait 2000 -o $timestamp.png --width 1920 --height 7680 --javascript "document.querySelectorAll('div.zn-accordion-handle').forEach((el) => el.click());"
+        echo "::set-env name=timestamp::$timestamp"
     - name: Commit and push
       run: |-
         git config user.name "Automated"
