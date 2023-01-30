@@ -20,16 +20,11 @@ jobs:
         path: ~/.cache/ms-playwright/
         key: ${{ runner.os }}-browsers
     - name: Install dependencies
-      run: |
-        pip install shot-scraper
-    - name: Install Playwright dependencies
-      run: |
-        shot-scraper install
-    - name: Take shots
-      run: |
-        timestamp=$(date "+%Y.%m.%d-%H.%M.%S")
-        shot-scraper https://ramaworks.store/pages/updates --wait 2000 -o $timestamp.png --width 1920 --height 10000 --javascript "document.querySelectorAll('div.zn-accordion-handle').forEach((el) => el.click());document.querySelectorAll('button.zn-accordion-handle').forEach((el) => el.click());"
-        echo "timestamp=$timestamp" >> $GITHUB_ENV
+      run: ./install.sh
+      shell: bash
+    - name: Take screenshot
+      run: ./run.sh
+      shell: bash
     - name: Commit and push
       run: |-
         git config user.name "Automated"
