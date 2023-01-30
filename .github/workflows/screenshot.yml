@@ -19,6 +19,10 @@ jobs:
       with:
         path: ~/.cache/ms-playwright/
         key: ${{ runner.os }}-browsers
+    - name: Check scripts are executable
+      run: |
+        ls -lah
+      shell: bash
     - name: Install dependencies
       run: ./install.sh
       shell: bash
